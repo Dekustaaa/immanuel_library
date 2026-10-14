@@ -1,49 +1,31 @@
 <?php
 
+require_once __DIR__ . "/../config/database.php";
+
 function getBooks()
 {
-  $books = [
-    [
-      "id" => 1,
-      "title" => "Laskar Pelangi",
-      "category" => "Fiksi",
-      "year" => 2005,
-      "stock" => 12,
-      "authors" => ["Andrea Hirata"],
-    ],
-    [
-      "id" => 2,
-      "title" => "Bumi",
-      "category" => "Fiksi",
-      "year" => 2014,
-      "stock" => 8,
-      "authors" => ["Tere Liye"],
-    ],
-    [
-      "id" => 3,
-      "title" => "Harry Potter dan Batu Bertuah",
-      "category" => "Fiksi",
-      "year" => 1997,
-      "stock" => 5,
-      "authors" => ["J.K. Rowling"],
-    ],
-    [
-      "id" => 4,
-      "title" => "Bumi Manusia",
-      "category" => "Sejarah",
-      "year" => 1980,
-      "stock" => 6,
-      "authors" => ["Pramoedya Ananta Toer"],
-    ],
-    [
-      "id" => 5,
-      "title" => "Antologi Rasa Nusantara",
-      "category" => "Fiksi",
-      "year" => 2021,
-      "stock" => 4,
-      "authors" => ["Pramoedya Ananta Toer", "Sapardi Djoko Damono"],
-    ],
-  ];
+  global $pdo;
+  $query = "SELECT b.id, b.title, b.stock, c.name as category FROM books b 
+            LEFT JOIN categories c ON b.category_id = c.id
+            ";
+  $stmt = $pdo->query($query);
+  $stmt->execute();
+  $books = $stmt->fetchAll();
+
+  $query = "SELECT ba.book_id, a.name FROM book_authors ba
+            LEFT JOIN authors a ON ba.author_id = a.id
+            ";
+  $stmt = $pdo->query($query);
+  $stmt->execute();
+  $bookAuthors = $stmt->fetchAll();
+
+  $bookAuthors = [];
+  foreach ($bookAuthors as $bookAuthor) {
+    $bookByAuthors[$bookAuthor['book_id']] = $bookAuthor['name'];
+  }
+  foreach ($books as $index => $book) {
+    $book[$index]['authors'] = $bookByAuthors[$book['id']] ?? [];
+  }
 
   return $books;
 }
