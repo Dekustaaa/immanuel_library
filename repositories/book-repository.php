@@ -5,26 +5,26 @@ require_once __DIR__ . "/../config/database.php";
 function getBooks()
 {
   global $pdo;
-  $query = "SELECT b.id, b.title, b.stock, c.name as category FROM books b 
+  $query = "SELECT b.id, b.title, b.stock, c.name as category FROM books b
             LEFT JOIN categories c ON b.category_id = c.id
             ";
-  $stmt = $pdo->query($query);
+  $stmt = $pdo->prepare($query);
   $stmt->execute();
   $books = $stmt->fetchAll();
 
-  $query = "SELECT ba.book_id, a.name FROM book_authors ba
+  $query = "SELECT ba.book_id, a.name FROM book_author ba
             LEFT JOIN authors a ON ba.author_id = a.id
             ";
-  $stmt = $pdo->query($query);
+  $stmt = $pdo->prepare($query);
   $stmt->execute();
   $bookAuthors = $stmt->fetchAll();
 
-  $bookAuthors = [];
+  $bookByAuthors = [];
   foreach ($bookAuthors as $bookAuthor) {
-    $bookByAuthors[$bookAuthor['book_id']] = $bookAuthor['name'];
+    $bookByAuthors[$bookAuthor['book_id']][] = $bookAuthor['name'];
   }
   foreach ($books as $index => $book) {
-    $book[$index]['authors'] = $bookByAuthors[$book['id']] ?? [];
+    $books[$index]['authors'] = $bookByAuthors[$book['id']] ?? [];
   }
 
   return $books;
