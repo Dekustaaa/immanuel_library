@@ -10,7 +10,7 @@ if (isset($_POST['store']) && $_SERVER['REQUEST_METHOD'] === "POST") {
         $isbn = htmlspecialchars($_POST['isbn']);
         $year = htmlspecialchars($_POST['year']);
         $stock = htmlspecialchars($_POST['stock']);
-        $category_id = htmlspecialchars($_POST['category_id']);
+        $categoryId = htmlspecialchars($_POST['category_id']);
         $description = htmlspecialchars($_POST['description']);
 
         $query = "INSERT INTO books (title, isbn, year, stock, category_id, description) VALUES (:title, :isbn, :year, :stock, :category_id, :description)";
@@ -20,7 +20,7 @@ if (isset($_POST['store']) && $_SERVER['REQUEST_METHOD'] === "POST") {
             ':isbn' => $isbn,
             ':year' => $year,
             ':stock' => $stock,
-            ':category_id' => $category_id,
+            ':category_id' => $categoryId,
             ':description' => $description
         ]);
         $book_id = $pdo->lastInsertId();
