@@ -3,7 +3,7 @@ require_once __DIR__ . "/../../middleware/auth.php";
 requireAuth();
 require_once __DIR__ . "/../../repositories/book-repository.php";
 
-$book = getBooks();
+$book = getBook($_GET['id'] ?? 0);
 
 $pageTitle = "Detail Buku";
 $pageSubtitle = "Informasi lengkap buku beserta kategori dan penulis";
