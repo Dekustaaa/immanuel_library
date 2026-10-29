@@ -1,5 +1,6 @@
 <?php
-session_start();
+require_once __DIR__ . "/../../middleware/auth.php";
+requireGuest();
 require_once __DIR__ . "/../../config/database.php";
 require_once __DIR__ . "/../../validations/auth-validation.php";
 require_once __DIR__ . "/../../repositories/user-repository.php";

@@ -1,6 +1,6 @@
 <?php
-session_start();
-$user = $_SESSION['user']
+require_once __DIR__ . "/../../middleware/auth.php";
+$user = getAuthUser();
 ?>
 <header class="app-topbar">
   <div class="page-title">

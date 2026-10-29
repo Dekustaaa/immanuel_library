@@ -1,5 +1,6 @@
 <?php
-session_start();
+require_once __DIR__ . "/../../middleware/auth.php";
+requireGuest();
 
 $success = $_SESSION['success'] ?? '';
 $errors = $_SESSION['errors'] ?? '';

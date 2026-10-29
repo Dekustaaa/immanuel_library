@@ -1,4 +1,6 @@
 <?php
+require_once __DIR__ . "/../../middleware/auth.php";
+requireRole(['admin']);
 $pageTitle = "Tambah Kategori";
 $pageSubtitle = "Buat kategori baru untuk mengelompokkan buku";
 ?>

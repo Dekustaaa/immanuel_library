@@ -1,3 +1,7 @@
+<?php
+require_once __DIR__ . "/../../middleware/auth.php";
+$isAdmin = hasRole(['admin']);
+?>
 <aside class="app-sidebar">
   <div class="brand">
     <span class="logo-badge">PD</span>
@@ -14,15 +18,20 @@
         <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20" />
         <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2Z" />
       </svg> Buku</a>
+      <?php if ($isAdmin): ?>
     <a href="/pages/categories/index.php"><svg class="icon" width="16" height="16" viewBox="0 0 24 24"
         fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
         <path d="M3 7a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2Z" />
       </svg> Kategori</a>
+      <?php endif ?>
+      <?php if ($isAdmin): ?>
     <a href="/pages/authors/index.php"><svg class="icon" width="16" height="16" viewBox="0 0 24 24"
         fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
         <path d="M12 20h9" />
         <path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4Z" />
       </svg> Penulis</a>
+      <?php endif ?>
+      <?php if ($isAdmin): ?>
     <a href="/pages/users/index.php"><svg class="icon" width="16" height="16" viewBox="0 0 24 24"
         fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
         <path d="M16 19v-1a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v1" />
@@ -30,6 +39,7 @@
         <path d="M22 19v-1a3.5 3.5 0 0 0-2.5-3.36" />
         <path d="M15.5 4.14a3.5 3.5 0 0 1 0 6.72" />
       </svg> Pengguna</a>
+      <?php endif ?>
     <a href="/pages/profile/edit.php"><svg class="icon" width="16" height="16" viewBox="0 0 24 24"
         fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
         <path d="M19 19.5v-1a4.5 4.5 0 0 0-4.5-4.5h-5A4.5 4.5 0 0 0 5 18.5v1" />

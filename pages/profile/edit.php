@@ -1,4 +1,6 @@
 <?php
+require_once __DIR__ . "/../../middleware/auth.php";
+requireAuth();
 require_once __DIR__ . "/../../repositories/user-repository.php";
 
 $user = getUser();
